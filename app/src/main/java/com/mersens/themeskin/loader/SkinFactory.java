@@ -9,7 +9,8 @@ import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.View;
 
-import com.mersens.themeskin.Constant;
+import com.mersens.themeskin.app.Constant;
+import com.mersens.themeskin.app.SkinApplication;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -23,7 +24,6 @@ import java.util.Map;
  */
 
 public class SkinFactory implements LayoutInflaterFactory {
-
     private AppCompatActivity mAppCompatActivity;
     private final Object[] mConstructorArgs = new Object[2];
     private static final String[] sClassPrefixList = {
@@ -80,6 +80,10 @@ public class SkinFactory implements LayoutInflaterFactory {
             SkinHelper.getInstance().addSkinView((ISkinChangeListener)mAppCompatActivity,skinViews);
         }
         skinViews.add(new SkinView(view,skinAttrs));
+        if(SkinHelper.getInstance().isNeedChangeSkin()){
+            SkinHelper.getInstance().skinChange((ISkinChangeListener)mAppCompatActivity);
+        }
+
     }
 
     private View createViewFromTag(Context context, String name, AttributeSet attrs) {
@@ -156,7 +160,7 @@ public class SkinFactory implements LayoutInflaterFactory {
                 String resName=context.getResources().getResourceEntryName(id);
                 if(resName.startsWith(Constant.SKIN_PREFIX)){
                     if(attrName.equals(SkinAttrType.BACKGROUND)){
-                        mSkinAttrType=new SkinAttrType(attrName,SkinAttrType.BACKGROUND_DRAWABLE);
+                        mSkinAttrType=new SkinAttrType(attrName,SkinAttrType.BACKGROUND_COLOR);
                     }else if(attrName.equals(SkinAttrType.SRC)){
                         mSkinAttrType=new SkinAttrType(attrName,SkinAttrType.BACKGROUND_DRAWABLE);
 
@@ -175,6 +179,31 @@ public class SkinFactory implements LayoutInflaterFactory {
 
 
 
+    public void dynamicAddView(ISkinChangeListener listener,View view, String attrname, int attrRes,boolean isColors){
+        List<SkinAttr> mSkinAttrs=new ArrayList<SkinAttr>();
+        SkinAttr mSkinAttr=null;
+        SkinAttrType mSkinAttrType=null;
+        String entryName = SkinApplication.getInstance().getResources().getResourceEntryName(attrRes);
+        if(isColors){
+            mSkinAttrType=new SkinAttrType(attrname,SkinAttrType.BACKGROUND_COLOR);
+        }else {
+            mSkinAttrType=new SkinAttrType(attrname,SkinAttrType.BACKGROUND_DRAWABLE);
+        }
+        if(mSkinAttrType!=null){
+            mSkinAttr=new SkinAttr(entryName,mSkinAttrType);
+            mSkinAttrs.add(mSkinAttr);
+        }
+        SkinView skinView=new SkinView(view,mSkinAttrs);
+        List<SkinView> skinViews=new ArrayList<>();
+        skinViews.add(skinView);
+        List<SkinView> skinViewsAll = SkinHelper.getInstance().getSkinViews((ISkinChangeListener)mAppCompatActivity);
+        if(skinViewsAll!=null){
+            skinViewsAll.addAll(skinViews);
+        }
+        SkinHelper.getInstance().addSkinView((ISkinChangeListener)mAppCompatActivity,skinViewsAll);
+
+        SkinHelper.getInstance().skinChange(listener);
+    }
     public void setAppCompatActivity(AppCompatActivity activity){
         this.mAppCompatActivity=activity;
 

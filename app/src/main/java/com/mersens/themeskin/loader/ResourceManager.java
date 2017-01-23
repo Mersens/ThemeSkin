@@ -15,7 +15,8 @@ public class ResourceManager {
     private Resources mResource;
     private String mPkgName;
     private String mSuffix;
-    public ResourceManager(Resources resources, String pkg,String suffix){
+
+    public ResourceManager( Resources resources, String pkg, String suffix){
         this.mResource=resources;
         this.mPkgName=pkg;
         if(suffix==null){
@@ -50,5 +51,14 @@ public class ResourceManager {
         }
 
     }
+    public int getColor(String name){
+        try {
+            name=appendSufix(name);
+            return mResource.getIdentifier(name,"color",mPkgName) ;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
 
+    }
 }

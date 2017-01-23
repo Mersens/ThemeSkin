@@ -1,21 +1,26 @@
 package com.mersens.themeskin.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
+import com.mersens.themeskin.loader.IDynamAddView;
 import com.mersens.themeskin.loader.ISkinChangeListener;
 import com.mersens.themeskin.loader.SkinFactory;
 import com.mersens.themeskin.loader.SkinHelper;
+import com.mersens.themeskin.statusbar.StatusBarUtil;
 
 /**
  * Created by Mersens on 2017/1/20
  * Email:626168564@qq.com
  */
 
-public class BaseSkinActivity extends AppCompatActivity implements ISkinChangeListener {
+public  class BaseSkinActivity extends AppCompatActivity implements ISkinChangeListener ,IDynamAddView{
     private SkinFactory mSkinFactory;
+    private boolean isChanged=false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,11 +35,32 @@ public class BaseSkinActivity extends AppCompatActivity implements ISkinChangeLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        isChanged=false;
         SkinHelper.getInstance().unReigisterListener(this);
     }
 
     @Override
-    public void onChanged() {
+    public void onChanged(int color) {
+        if(!isChanged){
+            if(color!=0 ){
+                changeStatusColor(color);
+                isChanged=true;
+            }
+        }
+    }
 
+    protected void changeStatusColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarUtil statusBarBackground = new StatusBarUtil(
+                    this, color);
+            statusBarBackground.setStatusBarColor();
+        }
+
+
+    }
+
+    @Override
+    public void dynamicAddView(View view, String attrName, int resID,boolean isColors) {
+        mSkinFactory.dynamicAddView(this,view,attrName,resID,isColors);
     }
 }

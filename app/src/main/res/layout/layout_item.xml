@@ -17,7 +17,7 @@
             android:layout_marginLeft="32dp"
             android:text="Item"
             android:textColor="@color/skin_item_color"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
     >
 </LinearLayout>
