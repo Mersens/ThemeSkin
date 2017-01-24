@@ -25,6 +25,8 @@ import java.util.Map;
  */
 
 public class SkinFactory implements LayoutInflaterFactory {
+
+
     private AppCompatActivity mAppCompatActivity;
     private final Object[] mConstructorArgs = new Object[2];
     private static final String[] sClassPrefixList = {
@@ -108,11 +110,9 @@ public class SkinFactory implements LayoutInflaterFactory {
                 return createView(context, name, null);
             }
         } catch (Exception e) {
-            // We do not want to catch these, lets return null and let the actual LayoutInflater
-            // try
+
             return null;
         } finally {
-            // Don't retain references on context.
             mConstructorArgs[0] = null;
             mConstructorArgs[1] = null;
         }
@@ -124,7 +124,6 @@ public class SkinFactory implements LayoutInflaterFactory {
 
         try {
             if (constructor == null) {
-                // Class not found in the cache, see if it's real, and try to add it
                 Class<? extends View> clazz = context.getClassLoader().loadClass(
                         prefix != null ? (prefix + name) : name).asSubclass(View.class);
 
@@ -134,8 +133,7 @@ public class SkinFactory implements LayoutInflaterFactory {
             constructor.setAccessible(true);
             return constructor.newInstance(mConstructorArgs);
         } catch (Exception e) {
-            // We do not want to catch these, lets return null and let the actual LayoutInflater
-            // try
+
             return null;
         }
     }
