@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.mersens.themeskin.R;
 import com.mersens.themeskin.app.Constant;
+import com.mersens.themeskin.loader.ISkinChangeCallBack;
 import com.mersens.themeskin.loader.SkinAttrType;
 import com.mersens.themeskin.loader.SkinHelper;
 
@@ -115,6 +116,24 @@ public class MainActivity extends BaseSkinActivity implements ColorChooserDialog
                                 .show();
                         break;
                     case 1:
+                        SkinHelper.getInstance().changeSkin(Constant.SKIN_PLUGIN_PATH, Constant.SKIN_PLUGIN_PKG, new ISkinChangeCallBack() {
+                            @Override
+                            public void onStart() {
+                                Log.e("onStart","onStart");
+
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                Log.e("onError","onError");
+                            }
+
+                            @Override
+                            public void onComplate() {
+                                Log.e("onComplate","onComplate");
+
+                            }
+                        });
                         break;
                 }
 

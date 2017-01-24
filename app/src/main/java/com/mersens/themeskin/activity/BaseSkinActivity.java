@@ -20,7 +20,7 @@ import com.mersens.themeskin.statusbar.StatusBarUtil;
 
 public  class BaseSkinActivity extends AppCompatActivity implements ISkinChangeListener ,IDynamAddView{
     private SkinFactory mSkinFactory;
-    private boolean isChanged=false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,17 +35,14 @@ public  class BaseSkinActivity extends AppCompatActivity implements ISkinChangeL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isChanged=false;
         SkinHelper.getInstance().unReigisterListener(this);
     }
 
     @Override
     public void onChanged(int color) {
-        if(!isChanged){
             if(color!=0 ){
                 changeStatusColor(color);
-                isChanged=true;
-            }
+
         }
     }
 

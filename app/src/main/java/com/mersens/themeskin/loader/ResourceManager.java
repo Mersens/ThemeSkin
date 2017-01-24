@@ -54,7 +54,7 @@ public class ResourceManager {
     public int getColor(String name){
         try {
             name=appendSufix(name);
-            return mResource.getIdentifier(name,"color",mPkgName) ;
+            return mResource.getColor(mResource.getIdentifier(name,"color",mPkgName) );
         }catch (Exception e){
             e.printStackTrace();
             return -1;

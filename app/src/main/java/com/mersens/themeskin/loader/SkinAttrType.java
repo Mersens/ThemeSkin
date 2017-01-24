@@ -39,7 +39,6 @@ public class SkinAttrType {
                 int color = SkinHelper.getInstance().getResourceManager().getColor(resName);
                 if (color != -1) {
                     view.setBackgroundColor(color);
-                    view.setBackgroundResource(color);
                 }
             }
 
