@@ -7,8 +7,8 @@ import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.mersens.themeskin.loader.IDynamAddView;
-import com.mersens.themeskin.loader.ISkinChangeListener;
+import com.mersens.themeskin.listener.IDynamAddView;
+import com.mersens.themeskin.listener.ISkinChangeListener;
 import com.mersens.themeskin.loader.SkinFactory;
 import com.mersens.themeskin.loader.SkinHelper;
 import com.mersens.themeskin.statusbar.StatusBarUtil;

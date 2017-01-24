@@ -5,6 +5,8 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 
+import com.mersens.themeskin.listener.ISkinChangeCallBack;
+import com.mersens.themeskin.listener.ISkinChangeListener;
 import com.mersens.themeskin.utils.PrefUtils;
 
 import java.io.File;

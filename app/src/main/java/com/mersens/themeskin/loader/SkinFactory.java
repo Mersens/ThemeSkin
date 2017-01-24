@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.mersens.themeskin.app.Constant;
 import com.mersens.themeskin.app.SkinApplication;
+import com.mersens.themeskin.listener.ISkinChangeListener;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

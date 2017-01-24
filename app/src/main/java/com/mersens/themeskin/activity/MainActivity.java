@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.mersens.themeskin.R;
 import com.mersens.themeskin.app.Constant;
-import com.mersens.themeskin.loader.ISkinChangeCallBack;
+import com.mersens.themeskin.listener.ISkinChangeCallBack;
 import com.mersens.themeskin.loader.SkinAttrType;
 import com.mersens.themeskin.loader.SkinHelper;
 
